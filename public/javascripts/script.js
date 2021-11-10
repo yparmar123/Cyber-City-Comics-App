@@ -31,7 +31,7 @@ const setComic = (comic, comicNum) => {
   img.setAttribute("src", comic.img);
   comicNo.setAttribute("value", comic.num);
   title.innerHTML = `${comic.safe_title}`;
-  date.innerHTML = `${comic.month}-${comic.day}-${comic.year}`;
+  date.innerHTML = `Published: ${comic.month}-${comic.day}-${comic.year}`;
   transcript.innerHTML = `${comic.alt}`;
 
   // Next and previous button event listeners
