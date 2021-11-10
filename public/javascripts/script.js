@@ -13,6 +13,7 @@ let title = document.querySelector("#title");
 let random = document.querySelector("#random");
 let param = document.querySelector("#param");
 let logo = document.querySelector("#logo");
+let views = document.querySelector("#views");
 
 const fetchComic = (comicNum) => {
   fetch(`/comic/${comicNum}`, { method: "POST" })
@@ -20,6 +21,13 @@ const fetchComic = (comicNum) => {
       res.json().then((data) => {
         currentComic = data;
         setComic(currentComic, comicNum);
+        fetch(`/viewedcomic/${currentComic.num}`, { method: "POST" }).then(
+          (res) => {
+            res.json().then((data) => {
+              views.innerHTML = `${data.count} views`;
+            });
+          }
+        );
       });
     })
     .catch((err) => {
