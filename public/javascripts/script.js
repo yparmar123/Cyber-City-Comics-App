@@ -22,6 +22,11 @@ const fetchComic = (comicNum) => {
         transcript.innerHTML = `${currentComic.alt}`;
         next.addEventListener("click", nextComic);
         previous.addEventListener("click", previousComic);
+        comicNo.addEventListener("keypress", (e) => {
+          if (e.key === "Enter") {
+            loadComic(comicNo.value);
+          }
+        });
         if (comicNum === "") {
           maxComicNo = currentComic.num;
           random.addEventListener("click", randomComic);
