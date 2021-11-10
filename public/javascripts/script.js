@@ -12,6 +12,8 @@ let transcript = document.querySelector("#transcript");
 let title = document.querySelector("#title");
 let random = document.querySelector("#random");
 let param = document.querySelector("#param");
+let logo = document.querySelector("#logo");
+let views = document.querySelector("#views");
 
 const fetchComic = (comicNum) => {
   fetch(`/comic/${comicNum}`, { method: "POST" })
@@ -19,6 +21,13 @@ const fetchComic = (comicNum) => {
       res.json().then((data) => {
         currentComic = data;
         setComic(currentComic, comicNum);
+        fetch(`/viewedcomic/${currentComic.num}`, { method: "POST" }).then(
+          (res) => {
+            res.json().then((data) => {
+              views.innerHTML = `${data.count} views`;
+            });
+          }
+        );
       });
     })
     .catch((err) => {
@@ -31,7 +40,7 @@ const setComic = (comic, comicNum) => {
   img.setAttribute("src", comic.img);
   comicNo.setAttribute("value", comic.num);
   title.innerHTML = `${comic.safe_title}`;
-  date.innerHTML = `${comic.month}-${comic.day}-${comic.year}`;
+  date.innerHTML = `Published: ${comic.month}-${comic.day}-${comic.year}`;
   transcript.innerHTML = `${comic.alt}`;
 
   // Next and previous button event listeners
@@ -90,6 +99,8 @@ const nextComic = () => {
 const randomComic = () => {
   fetchComic(Math.floor(Math.random() * maxComicNo));
 };
+
+logo.addEventListener("click", loadHomePage);
 
 window.onload = function () {
   if (param.value !== "0") {
