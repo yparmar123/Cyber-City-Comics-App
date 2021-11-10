@@ -3,9 +3,10 @@
     <h1 id="title"></h1>
     <p id="date"></p>
   </div>
-  <img id="comic" alt="comic" />
-
-  <p id="transcript"></p>
+  <div id="img-container">
+    <img id="comic" alt="comic" />
+    <p id="transcript"></p>
+  </div>
 
   <div id="nav-section">
     <button id="previous" class="nav-button">Previous</button>
@@ -15,7 +16,10 @@
     </div>
     <button id="next" class="nav-button">Next</button>
   </div>
-  <button id="random" class="nav-button">Random Comic</button>
+  <div id="random-container">
+    <button id="random" class="nav-button">Random Comic</button>
+  </div>
+
   <input type="hidden" />
 
   {{! This value is for if a paramter was inputted in the url  }}

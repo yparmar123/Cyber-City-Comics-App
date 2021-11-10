@@ -12,6 +12,7 @@ let transcript = document.querySelector("#transcript");
 let title = document.querySelector("#title");
 let random = document.querySelector("#random");
 let param = document.querySelector("#param");
+let logo = document.querySelector("#logo");
 
 const fetchComic = (comicNum) => {
   fetch(`/comic/${comicNum}`, { method: "POST" })
@@ -90,6 +91,8 @@ const nextComic = () => {
 const randomComic = () => {
   fetchComic(Math.floor(Math.random() * maxComicNo));
 };
+
+logo.addEventListener("click", loadHomePage);
 
 window.onload = function () {
   if (param.value !== "0") {
