@@ -1,0 +1,24 @@
+<div id="comic-div">
+  <div id="title-header">
+    <h1 id="title"></h1>
+    <p id="date"></p>
+  </div>
+  <img id="comic" alt="comic" />
+
+  <p id="transcript"></p>
+
+  <div id="nav-section">
+    <button id="previous" class="nav-button">Previous</button>
+    <input id="comic-number" type="text" />
+    <button id="next" class="nav-button">Next</button>
+  </div>
+  <button id="random" class="nav-button">Random Comic</button>
+  <input type="hidden" />
+
+  {{! This value is for if a paramter was inputted in the url  }}
+  {{#if comicNo}}
+    <input id="param" type="hidden" value="{{comicNo}}" />
+  {{else}}
+    <input id="param" type="hidden" value="0" />
+  {{/if}}
+</div>

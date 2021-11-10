@@ -1,8 +1,49 @@
-body {
-  padding: 50px;
+main {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  justify-content: center;
+  display: flex;
+}
+
+#comic,
+#random {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
+}
+
+#comic-div {
+  width: 50%;
+}
+
+#title-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#title,
+#date,
+#transcript {
+  text-align: center;
+}
+
+#logo {
+  text-align: center;
+}
+
+#nav-section {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-button {
+  margin: 5px;
+}
+
+#comic-number {
+  width: 60px;
 }
