@@ -4,7 +4,6 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const handlebars = require("express-handlebars");
-const fetch = require("node-fetch");
 
 var indexRouter = require("./routes/index");
 

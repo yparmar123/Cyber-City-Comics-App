@@ -1,5 +1,8 @@
+// Current comic and maximum comic number value
 let currentComic = {};
 let maxComicNo;
+
+// Html elements
 let img = document.querySelector("#comic");
 let date = document.querySelector("#date");
 let next = document.querySelector("#next");
@@ -8,41 +11,14 @@ let comicNo = document.querySelector("#comic-number");
 let transcript = document.querySelector("#transcript");
 let title = document.querySelector("#title");
 let random = document.querySelector("#random");
+let param = document.querySelector("#param");
 
 const fetchComic = (comicNum) => {
-  fetch(`/comic/${comicNum}`)
+  fetch(`/comic/${comicNum}`, { method: "POST" })
     .then((res) => {
       res.json().then((data) => {
         currentComic = data;
-        console.log(currentComic);
-        img.setAttribute("src", currentComic.img);
-        comicNo.setAttribute("value", currentComic.num);
-        title.innerHTML = `${currentComic.safe_title}`;
-        date.innerHTML = `${currentComic.month}-${currentComic.day}-${currentComic.year}`;
-        transcript.innerHTML = `${currentComic.alt}`;
-        next.addEventListener("click", nextComic);
-        previous.addEventListener("click", previousComic);
-        comicNo.addEventListener("keypress", (e) => {
-          if (e.key === "Enter") {
-            loadComic(comicNo.value);
-          }
-        });
-        if (comicNum === "") {
-          maxComicNo = currentComic.num;
-          random.addEventListener("click", randomComic);
-        }
-
-        if (maxComicNo === currentComic.num) {
-          previous.disabled = true;
-        } else {
-          previous.disabled = false;
-        }
-
-        if (currentComic.num === 1) {
-          next.disabled = true;
-        } else {
-          next.disabled = false;
-        }
+        setComic(currentComic, comicNum);
       });
     })
     .catch((err) => {
@@ -50,26 +26,75 @@ const fetchComic = (comicNum) => {
     });
 };
 
+// Sets comic values into page
+const setComic = (comic, comicNum) => {
+  img.setAttribute("src", comic.img);
+  comicNo.setAttribute("value", comic.num);
+  title.innerHTML = `${comic.safe_title}`;
+  date.innerHTML = `${comic.month}-${comic.day}-${comic.year}`;
+  transcript.innerHTML = `${comic.alt}`;
+
+  // Next and previous button event listeners
+  next.addEventListener("click", nextComic);
+  previous.addEventListener("click", previousComic);
+
+  // Search bar event listener
+  comicNo.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      loadComic(comicNo.value);
+    }
+  });
+
+  // if default value is selected or navigated to, maximum comic number is set
+  if (comicNum === "") {
+    maxComicNo = comic.num;
+    random.addEventListener("click", randomComic);
+  }
+
+  // previous button is disabled if currently on the latest comic
+  if (maxComicNo === comic.num) {
+    previous.disabled = true;
+  } else {
+    previous.disabled = false;
+  }
+
+  // next button is disabled if on the last comic
+  if (comic.num === 1) {
+    next.disabled = true;
+  } else {
+    next.disabled = false;
+  }
+};
+
+// Loads default home page
 const loadHomePage = () => {
   fetchComic("");
 };
 
+// Loads page based off comic number
 const loadComic = (comicNum) => {
   fetchComic(comicNum);
 };
 
+// Previous button event function
 const previousComic = () => {
   fetchComic(currentComic.num + 1);
 };
 
+// Next button event function
 const nextComic = () => {
   fetchComic(currentComic.num - 1);
 };
 
+// Random button even function
 const randomComic = () => {
   fetchComic(Math.floor(Math.random() * maxComicNo));
 };
 
 window.onload = function () {
-  loadHomePage();
+  if (param.value !== "0") {
+    loadComic(param.value);
+  } else {
+    loadHomePage();
+  }
 };

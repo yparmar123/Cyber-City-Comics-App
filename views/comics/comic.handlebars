@@ -13,4 +13,12 @@
     <button id="next" class="nav-button">Next</button>
   </div>
   <button id="random" class="nav-button">Random Comic</button>
+  <input type="hidden" />
+
+  {{! This value is for if a paramter was inputted in the url  }}
+  {{#if comicNo}}
+    <input id="param" type="hidden" value="{{comicNo}}" />
+  {{else}}
+    <input id="param" type="hidden" value="0" />
+  {{/if}}
 </div>
