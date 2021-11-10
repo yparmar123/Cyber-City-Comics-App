@@ -7,6 +7,7 @@ let previous = document.querySelector("#previous");
 let comicNo = document.querySelector("#comic-number");
 let transcript = document.querySelector("#transcript");
 let title = document.querySelector("#title");
+let random = document.querySelector("#random");
 
 const fetchComic = (comicNum) => {
   fetch(`/comic/${comicNum}`)
@@ -18,10 +19,12 @@ const fetchComic = (comicNum) => {
         comicNo.setAttribute("value", currentComic.num);
         title.innerHTML = `${currentComic.safe_title}`;
         date.innerHTML = `${currentComic.month}-${currentComic.day}-${currentComic.year}`;
+        transcript.innerHTML = `${currentComic.alt}`;
         next.addEventListener("click", nextComic);
         previous.addEventListener("click", previousComic);
         if (comicNum === "") {
           maxComicNo = currentComic.num;
+          random.addEventListener("click", randomComic);
         }
 
         if (maxComicNo === currentComic.num) {
@@ -58,8 +61,10 @@ const nextComic = () => {
   fetchComic(currentComic.num - 1);
 };
 
+const randomComic = () => {
+  fetchComic(Math.floor(Math.random() * maxComicNo));
+};
+
 window.onload = function () {
   loadHomePage();
-  previous.disabled = true;
-  maxComicNo = currentComic.num;
 };
